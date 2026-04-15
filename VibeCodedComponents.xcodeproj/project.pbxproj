@@ -55,6 +55,7 @@
 		BD653DEE2F5BE7E90018509A /* HorizontalPillPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD653DED2F5BE7E90018509A /* HorizontalPillPicker.swift */; };
 		BD653DF02F5BEDF00018509A /* PremiumTimerWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD653DEF2F5BEDF00018509A /* PremiumTimerWidget.swift */; };
 		BDAD35B12F5B2CDD0039A7AC /* soft_startup.wav in Resources */ = {isa = PBXBuildFile; fileRef = BDAD35AE2F5B2CDD0039A7AC /* soft_startup.wav */; };
+		BDDF45A22F8FA13D00B37ADF /* BankingWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDF45A12F8FA13D00B37ADF /* BankingWidgetView.swift */; };
 		BDE20A222F5FAB4500063ADC /* FluidSigningInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE20A212F5FAB4500063ADC /* FluidSigningInteraction.swift */; };
 		BDE718902F5A077A00CDA6FF /* CustomTimeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE7188F2F5A077900CDA6FF /* CustomTimeSlider.swift */; };
 		BDE718922F5A0AC200CDA6FF /* FeedbackForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE718912F5A0AC200CDA6FF /* FeedbackForm.swift */; };
@@ -114,6 +115,7 @@
 		BD653DED2F5BE7E90018509A /* HorizontalPillPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalPillPicker.swift; sourceTree = "<group>"; };
 		BD653DEF2F5BEDF00018509A /* PremiumTimerWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumTimerWidget.swift; sourceTree = "<group>"; };
 		BDAD35AE2F5B2CDD0039A7AC /* soft_startup.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = soft_startup.wav; sourceTree = "<group>"; };
+		BDDF45A12F8FA13D00B37ADF /* BankingWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankingWidgetView.swift; sourceTree = "<group>"; };
 		BDE20A212F5FAB4500063ADC /* FluidSigningInteraction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FluidSigningInteraction.swift; sourceTree = "<group>"; };
 		BDE7188F2F5A077900CDA6FF /* CustomTimeSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTimeSlider.swift; sourceTree = "<group>"; };
 		BDE718912F5A0AC200CDA6FF /* FeedbackForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackForm.swift; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 				BD2440A52F5E6675001D9CA5 /* LiquidTimePicker.swift */,
 				BD2440A72F5E7CCB001D9CA5 /* InteractiveNodeView.swift */,
 				BD0995FB2F6218B500CF2821 /* AudioPlayerComponent.swift */,
+				BDDF45A12F8FA13D00B37ADF /* BankingWidgetView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -355,6 +358,7 @@
 				BD0338C82F58D97C00DF9F97 /* NestedDynamicSegment.swift in Sources */,
 				BD2440A42F5E4EAF001D9CA5 /* DatePickerInteractionView.swift in Sources */,
 				BD0338CA2F58DEC800DF9F97 /* AILoadingIndicator.swift in Sources */,
+				BDDF45A22F8FA13D00B37ADF /* BankingWidgetView.swift in Sources */,
 				BD44A6032F58EE5A0053439F /* ChatGPTModelMenu.swift in Sources */,
 				BD0F82712F5A38800036366D /* SoundEffectPlayer.swift in Sources */,
 				BD2440A82F5E7CCB001D9CA5 /* InteractiveNodeView.swift in Sources */,
