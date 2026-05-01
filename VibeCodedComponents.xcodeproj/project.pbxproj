@@ -54,6 +54,7 @@
 		BD653DEA2F5BBEA80018509A /* ReceiveConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD653DE92F5BBEA80018509A /* ReceiveConfirmationView.swift */; };
 		BD653DEE2F5BE7E90018509A /* HorizontalPillPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD653DED2F5BE7E90018509A /* HorizontalPillPicker.swift */; };
 		BD653DF02F5BEDF00018509A /* PremiumTimerWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD653DEF2F5BEDF00018509A /* PremiumTimerWidget.swift */; };
+		BD83F5D52FA45AAA00624399 /* FanMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD83F5D42FA45AAA00624399 /* FanMenu.swift */; };
 		BDAD35B12F5B2CDD0039A7AC /* soft_startup.wav in Resources */ = {isa = PBXBuildFile; fileRef = BDAD35AE2F5B2CDD0039A7AC /* soft_startup.wav */; };
 		BDDF45A22F8FA13D00B37ADF /* BankingWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDF45A12F8FA13D00B37ADF /* BankingWidgetView.swift */; };
 		BDE20A222F5FAB4500063ADC /* FluidSigningInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE20A212F5FAB4500063ADC /* FluidSigningInteraction.swift */; };
@@ -114,6 +115,7 @@
 		BD653DE92F5BBEA80018509A /* ReceiveConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveConfirmationView.swift; sourceTree = "<group>"; };
 		BD653DED2F5BE7E90018509A /* HorizontalPillPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalPillPicker.swift; sourceTree = "<group>"; };
 		BD653DEF2F5BEDF00018509A /* PremiumTimerWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumTimerWidget.swift; sourceTree = "<group>"; };
+		BD83F5D42FA45AAA00624399 /* FanMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FanMenu.swift; sourceTree = "<group>"; };
 		BDAD35AE2F5B2CDD0039A7AC /* soft_startup.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = soft_startup.wav; sourceTree = "<group>"; };
 		BDDF45A12F8FA13D00B37ADF /* BankingWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankingWidgetView.swift; sourceTree = "<group>"; };
 		BDE20A212F5FAB4500063ADC /* FluidSigningInteraction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FluidSigningInteraction.swift; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 				BD2440A72F5E7CCB001D9CA5 /* InteractiveNodeView.swift */,
 				BD0995FB2F6218B500CF2821 /* AudioPlayerComponent.swift */,
 				BDDF45A12F8FA13D00B37ADF /* BankingWidgetView.swift */,
+				BD83F5D42FA45AAA00624399 /* FanMenu.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -351,6 +354,7 @@
 				BD3DB5C52F5CDE5F000B3663 /* SearchingOrbLoader.swift in Sources */,
 				BD653DE62F5BB4050018509A /* TextRoller.swift in Sources */,
 				BD0995FC2F6218B500CF2821 /* AudioPlayerComponent.swift in Sources */,
+				BD83F5D52FA45AAA00624399 /* FanMenu.swift in Sources */,
 				BDE7189C2F5A22CB00CDA6FF /* PreparationWidgetView.swift in Sources */,
 				BD3DB5CF2F5D0EB2000B3663 /* DrawingPromptBox.swift in Sources */,
 				BD3DB5CB2F5CEEB6000B3663 /* JoyfulPriceStepper.swift in Sources */,

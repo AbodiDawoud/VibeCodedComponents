@@ -8,16 +8,7 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         Form {
-            Section("Tests") {
-                NavigationLink("BankingWidgetView") {
-                    ZStack {
-                        // Light grey screen background to make the widget pop
-                        Color(UIColor.systemGroupedBackground).ignoresSafeArea()
-                        BankWidgetView()
-                    }
-                }
-            }
-            
+            NavigationLink("Fan Menu", destination: FanMenuView.init)
             NavigationLink("Gooey Menu", destination: SmoothGooeyMenu.init)
             NavigationLink("Expandable QR Button", destination: ExpandableQRButton.init)
             NavigationLink("QRCode Interaction Button", destination: QRCodeInteractionButton.init)
