@@ -30,11 +30,10 @@ public extension UIWindow {
             let appearance = UserDefaults.standard.value(forKey: __AppearanceKey) as? String
             let new_appearance = appearance == "light" ? "dark" : "light"
             UserDefaults.standard.set(new_appearance, forKey: __AppearanceKey)
-            print("Done")
         }
          
         super.motionEnded(motion, with: event)
      }
 }
 
-fileprivate let __AppearanceKey: String = "FaceGenAppearance"
+fileprivate let __AppearanceKey: String = "AppAppearance"

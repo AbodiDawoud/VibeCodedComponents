@@ -36,6 +36,7 @@
 		BD0F827F2F5A4E820036366D /* PlayfulCarouselIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0F827E2F5A4E820036366D /* PlayfulCarouselIndicator.swift */; };
 		BD0F82812F5A6C2D0036366D /* minimal_drop.wav in Resources */ = {isa = PBXBuildFile; fileRef = BD0F82802F5A6C2D0036366D /* minimal_drop.wav */; };
 		BD0F82832F5A76E80036366D /* HoldToDeleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0F82822F5A76E80036366D /* HoldToDeleteButton.swift */; };
+		BD18B6A52FA78D8C00A4E19B /* ComponentsListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD18B6A42FA78D8C00A4E19B /* ComponentsListScreen.swift */; };
 		BD2440A42F5E4EAF001D9CA5 /* DatePickerInteractionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2440A32F5E4EAF001D9CA5 /* DatePickerInteractionView.swift */; };
 		BD2440A62F5E6675001D9CA5 /* LiquidTimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2440A52F5E6675001D9CA5 /* LiquidTimePicker.swift */; };
 		BD2440A82F5E7CCB001D9CA5 /* InteractiveNodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2440A72F5E7CCB001D9CA5 /* InteractiveNodeView.swift */; };
@@ -97,6 +98,7 @@
 		BD0F827E2F5A4E820036366D /* PlayfulCarouselIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayfulCarouselIndicator.swift; sourceTree = "<group>"; };
 		BD0F82802F5A6C2D0036366D /* minimal_drop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = minimal_drop.wav; sourceTree = "<group>"; };
 		BD0F82822F5A76E80036366D /* HoldToDeleteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoldToDeleteButton.swift; sourceTree = "<group>"; };
+		BD18B6A42FA78D8C00A4E19B /* ComponentsListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsListScreen.swift; sourceTree = "<group>"; };
 		BD2440A32F5E4EAF001D9CA5 /* DatePickerInteractionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerInteractionView.swift; sourceTree = "<group>"; };
 		BD2440A52F5E6675001D9CA5 /* LiquidTimePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiquidTimePicker.swift; sourceTree = "<group>"; };
 		BD2440A72F5E7CCB001D9CA5 /* InteractiveNodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractiveNodeView.swift; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 				BD0F82612F5A37DE0036366D /* Resources */,
 				BD0F826F2F5A38740036366D /* Helpers */,
 				BD0338B62F58D05300DF9F97 /* Components */,
+				BD18B6A42FA78D8C00A4E19B /* ComponentsListScreen.swift */,
 				BD0338AB2F58D02600DF9F97 /* ContentView.swift */,
 				BD0338A92F58D02600DF9F97 /* App.swift */,
 			);
@@ -358,6 +361,7 @@
 				BDE7189C2F5A22CB00CDA6FF /* PreparationWidgetView.swift in Sources */,
 				BD3DB5CF2F5D0EB2000B3663 /* DrawingPromptBox.swift in Sources */,
 				BD3DB5CB2F5CEEB6000B3663 /* JoyfulPriceStepper.swift in Sources */,
+				BD18B6A52FA78D8C00A4E19B /* ComponentsListScreen.swift in Sources */,
 				BD3DB5D52F5D304D000B3663 /* QRCodeInteractionButton.swift in Sources */,
 				BD0338C82F58D97C00DF9F97 /* NestedDynamicSegment.swift in Sources */,
 				BD2440A42F5E4EAF001D9CA5 /* DatePickerInteractionView.swift in Sources */,
