@@ -189,7 +189,7 @@ private struct FanMenuPill: View {
                 .font(.system(size: 17, weight: .semibold))
                 .foregroundStyle(isHighlighted ? .white : item.tint)
                 .frame(width: 22)
-
+                .symbolRenderingMode(.hierarchical)
             Text(item.label)
                 .font(.system(size: 14, weight: .semibold, design: .rounded))
                 .foregroundStyle(isHighlighted ? .white : .primary)
@@ -197,7 +197,10 @@ private struct FanMenuPill: View {
         }
         .padding(.horizontal, 15)
         .frame(height: 42)
-        .background(Color(UIColor.secondarySystemGroupedBackground), in: .capsule)
+        .background {
+            Capsule()
+                .fill(isHighlighted ? item.tint : Color(UIColor.secondarySystemGroupedBackground))
+        }
     }
 }
 
@@ -208,11 +211,9 @@ private struct FanMenuTrigger: View {
     var body: some View {
         ZStack {
             Circle()
-                .stroke(.primary.opacity(0.08), lineWidth: 1)
-                .frame(width: 92, height: 92)
-                .scaleEffect(pulse ? 1.35 : 0.72)
-                .opacity(isExpanded ? 0 : 0.45)
-                .animation(.easeOut(duration: 0.48), value: pulse)
+                .fill(.regularMaterial)
+                .frame(width: 66, height: 66)
+                .shadow(color: .black.opacity(0.16), radius: 20, x: 0, y: 12)
 
 
             Image(systemName: "plus")

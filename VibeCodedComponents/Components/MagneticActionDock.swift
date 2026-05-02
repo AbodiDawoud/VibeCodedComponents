@@ -196,8 +196,12 @@ private struct MagneticActionBubble: View {
             Image(systemName: action.icon)
                 .font(.system(size: 21, weight: .bold))
                 .foregroundStyle(isActive ? .white : action.color)
+                .symbolRenderingMode(.hierarchical)
                 .frame(width: 58, height: 58)
-                .background(Color(UIColor.secondarySystemGroupedBackground), in: .capsule)
+                .background {
+                    Circle()
+                        .fill(isActive ? action.color : Color(UIColor.secondarySystemGroupedBackground))
+                }
 
             Text(action.title)
                 .font(.system(size: 12, weight: .semibold, design: .rounded))

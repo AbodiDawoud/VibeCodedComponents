@@ -45,6 +45,33 @@ struct ComponentsListScreen: View {
             entry.destination
                 .navigationTransition(.zoom(sourceID: entry.id, in: animation))
         }
+        .overlay(alignment: .center) {
+            VStack {
+                topEdgeFade
+                Spacer()
+                bottomEdgeFade
+            }
+            .ignoresSafeArea()
+        }
+    }
+    
+    private var topEdgeFade: some View {
+        LinearGradient(
+            stops: [.init(color: .reversedPrimary, location: 0.2), .init(color: .clear, location: 1.0)],
+            startPoint: .top, endPoint: .bottom
+        )
+        .frame(height: 40)
+        .allowsHitTesting(false)
+    }
+    
+    private var bottomEdgeFade: some View {
+        LinearGradient(
+            stops: [.init(color: .reversedPrimary, location: 0.2), .init(color: .clear, location: 1.0)],
+            startPoint: .bottom, endPoint: .top
+        )
+        .frame(height: 130)
+        .allowsHitTesting(false)
+        .offset(y: 40)
     }
 
     private var profileHeader: some View {
