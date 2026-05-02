@@ -8,7 +8,11 @@ import SwiftUI
 struct ComponentsListScreen: View {
     private let entries: [ComponentEntry]
     private let edgeFadeHeight: CGFloat = 44
-
+   
+    @State private var tappedEntry: ComponentEntry?
+    @Namespace private var animation
+    @Environment(\.colorScheme) private var scheme
+    
     init(@EntriesBuilder entries: () -> [ComponentEntry]) {
         self.entries = entries()
     }
@@ -21,6 +25,8 @@ struct ComponentsListScreen: View {
                 VStack(spacing: 0) {
                     ForEach(Array(entries.enumerated()), id: \.element.id) { index, entry in
                         ComponentEntryRowView(entry: entry)
+                            .matchedTransitionSource(id: entry.id, in: animation)
+                            .onTapGesture { tappedEntry = entry }
                         
                         if index < entries.count - 1 {
                             Divider()
@@ -35,13 +41,9 @@ struct ComponentsListScreen: View {
             .padding(.horizontal, 24)
             .padding(.vertical, 18)
         }
-        .overlay(alignment: .center) {
-            VStack {
-                edgeFade(from: .top).ignoresSafeArea()
-                Spacer()
-                edgeFade(from: .bottom).ignoresSafeArea()
-            }
-            .ignoresSafeArea()
+        .sheet(item: $tappedEntry) { entry in
+            entry.destination
+                .navigationTransition(.zoom(sourceID: entry.id, in: animation))
         }
     }
 
@@ -68,32 +70,6 @@ struct ComponentsListScreen: View {
                 .clipShape(Circle())
         }
     }
-
-    private func edgeFade(from edge: Edge) -> some View {
-        Rectangle()
-            .fill(.regularMaterial)
-            .frame(height: edgeFadeHeight)
-            .mask(
-                LinearGradient(
-                    stops: edge == .top
-                        ? [
-                            .init(color: .black, location: 0),
-                            .init(color: .black.opacity(0.92), location: 0.42),
-                            .init(color: .black.opacity(0.28), location: 0.78),
-                            .init(color: .clear, location: 1)
-                        ]
-                        : [
-                            .init(color: .clear, location: 0),
-                            .init(color: .black.opacity(0.28), location: 0.22),
-                            .init(color: .black.opacity(0.92), location: 0.58),
-                            .init(color: .black, location: 1)
-                        ],
-                    startPoint: .top,
-                    endPoint: .bottom
-                )
-            )
-            .allowsHitTesting(false)
-    }
 }
 
 
@@ -101,48 +77,45 @@ private struct ComponentEntryRowView: View {
     let entry: ComponentEntry
 
     var body: some View {
-        NavigationLink(destination: entry.destination) {
-            HStack(alignment: .center, spacing: 0) {
-                HStack(alignment: .firstTextBaseline, spacing: 9) {
-                    Text(entry.title)
-                        .font(.callout.bold())
+        HStack(alignment: .center, spacing: 0) {
+            HStack(alignment: .firstTextBaseline, spacing: 9) {
+                Text(entry.title)
+                    .font(.callout.bold())
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.75)
+
+                if !entry.date.isEmpty {
+                    Text("•")
+                        .bold()
+                        .foregroundStyle(.secondary)
+                    
+                    Text(entry.date)
+                        .font(.callout)
+                        .foregroundStyle(.secondary)
                         .lineLimit(1)
                         .minimumScaleFactor(0.75)
-
-                    if !entry.date.isEmpty {
-                        Text("•")
-                            .bold()
-                            .foregroundStyle(.secondary)
-                        
-                        Text(entry.date)
-                            .font(.callout)
-                            .foregroundStyle(.secondary)
-                            .lineLimit(1)
-                            .minimumScaleFactor(0.75)
-                    }
                 }
-
-                if let badge = entry.badge {
-                    Text(badge)
-                        .textCase(.uppercase)
-                        .font(.system(size: 13, weight: .semibold, design: .rounded))
-                        .foregroundStyle(.blue.gradient)
-                        .padding(.horizontal, 12)
-                        .frame(height: 27)
-                        .background(.blue.quaternary, in: .capsule)
-                        .padding(.leading, 14)
-                }
-
-                Spacer(minLength: 14)
-
-                Image(systemName: "chevron.right")
-                    .font(.system(size: 12, weight: .semibold))
-                    .foregroundStyle(.tertiary)
-                    .frame(width: 20, height: 44, alignment: .trailing)
             }
-            .frame(height: 64)
+
+            if let badge = entry.badge {
+                Text(badge)
+                    .textCase(.uppercase)
+                    .font(.system(size: 13, weight: .semibold, design: .rounded))
+                    .foregroundStyle(.blue.gradient)
+                    .padding(.horizontal, 12)
+                    .frame(height: 27)
+                    .background(.blue.quaternary, in: .capsule)
+                    .padding(.leading, 14)
+            }
+
+            Spacer(minLength: 14)
+
+            Image(systemName: "chevron.right")
+                .font(.system(size: 12, weight: .semibold))
+                .foregroundStyle(.tertiary)
+                .frame(width: 20, height: 44, alignment: .trailing)
         }
-        .buttonStyle(.plain)
+        .frame(height: 64)
     }
 }
 
