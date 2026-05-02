@@ -7,6 +7,7 @@ import SwiftUI
 
 struct ComponentsListScreen: View {
     private let entries: [ComponentEntry]
+    private let edgeFadeHeight: CGFloat = 44
 
     init(@EntriesBuilder entries: () -> [ComponentEntry]) {
         self.entries = entries()
@@ -34,6 +35,14 @@ struct ComponentsListScreen: View {
             .padding(.horizontal, 24)
             .padding(.vertical, 18)
         }
+        .overlay(alignment: .center) {
+            VStack {
+                edgeFade(from: .top).ignoresSafeArea()
+                Spacer()
+                edgeFade(from: .bottom).ignoresSafeArea()
+            }
+            .ignoresSafeArea()
+        }
     }
 
     private var profileHeader: some View {
@@ -58,6 +67,32 @@ struct ComponentsListScreen: View {
                 .frame(width: 56, height: 56)
                 .clipShape(Circle())
         }
+    }
+
+    private func edgeFade(from edge: Edge) -> some View {
+        Rectangle()
+            .fill(.regularMaterial)
+            .frame(height: edgeFadeHeight)
+            .mask(
+                LinearGradient(
+                    stops: edge == .top
+                        ? [
+                            .init(color: .black, location: 0),
+                            .init(color: .black.opacity(0.92), location: 0.42),
+                            .init(color: .black.opacity(0.28), location: 0.78),
+                            .init(color: .clear, location: 1)
+                        ]
+                        : [
+                            .init(color: .clear, location: 0),
+                            .init(color: .black.opacity(0.28), location: 0.22),
+                            .init(color: .black.opacity(0.92), location: 0.58),
+                            .init(color: .black, location: 1)
+                        ],
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+            )
+            .allowsHitTesting(false)
     }
 }
 
