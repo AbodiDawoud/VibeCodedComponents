@@ -143,7 +143,7 @@ struct FluidDropInteractionView: View {
                                     isHovering = value.translation.width < -70 && abs(value.translation.height) < 100
                                     
                                     if isHovering && !wasHovering {
-                                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                                        hapticFeedback(style: .medium)
                                     }
                                 }
                             }
@@ -156,7 +156,7 @@ struct FluidDropInteractionView: View {
                                         isHovering = false
                                         isDropped = true // Triggers the MGE transition
                                     }
-                                    UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
+                                    hapticFeedback(style: .rigid)
                                 } else {
                                     // Snap back
                                     withAnimation(.spring(response: 0.4, dampingFraction: 0.7)) {

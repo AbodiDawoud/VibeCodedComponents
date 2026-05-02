@@ -127,7 +127,7 @@ struct QRCodeInteractionButton: View {
         }
         
         // Crisp haptic feedback for the morphing shape
-        UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
+        hapticFeedback(style: .rigid)
     }
     
     private func handleCopyLink() {
@@ -135,9 +135,7 @@ struct QRCodeInteractionButton: View {
             isCopied = true
         }
         
-        // Light haptic for button press
-        let generator = UIImpactFeedbackGenerator(style: .light)
-        generator.impactOccurred()
+        hapticFeedback(style: .light)
         
         // Optional: Reset back to "Copy Link" after a few seconds
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {

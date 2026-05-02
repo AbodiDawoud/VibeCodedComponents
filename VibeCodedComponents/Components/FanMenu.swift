@@ -1,225 +1,247 @@
 import SwiftUI
-import CoreHaptics
 
-// MARK: - Models
-struct FanMenuItem {
+private struct FanMenuItem {
     let label: String
     let icon: String
-}
-
-// MARK: - Haptics
-final class HapticManager {
-    static let shared = HapticManager()
-
-    private var engine: CHHapticEngine?
-
-    private init() {
-        prepareEngine()
-    }
-
-    private func prepareEngine() {
-        let supports = CHHapticEngine.capabilitiesForHardware().supportsHaptics
-        if !supports { return }
-        do {
-            engine = try CHHapticEngine()
-            try engine?.start()
-        } catch {
-            // If the engine can't be created, we silently ignore haptics
-        }
-    }
-
-    func trigger(_ style: HapticStyle) {
-        let supports = CHHapticEngine.capabilitiesForHardware().supportsHaptics
-        if !supports { return }
-
-        let intensity: Float
-        switch style {
-        case .light: intensity = 0.25
-        case .soft: intensity = 0.12
-        case .medium: intensity = 0.5
-        }
-        let sharpness: Float = 0.3
-
-        let event = CHHapticEvent(
-            eventType: .hapticTransient,
-            parameters: [
-                CHHapticEventParameter(parameterID: .hapticIntensity, value: intensity),
-                CHHapticEventParameter(parameterID: .hapticSharpness, value: sharpness)
-            ],
-            relativeTime: 0
-        )
-        do {
-            let pattern = try CHHapticPattern(events: [event], parameters: [])
-            let player = try engine?.makePlayer(with: pattern)
-            try engine?.start()
-            try player?.start(atTime: 0)
-        } catch {
-            // Ignore failures gracefully
-        }
-    }
-
-    enum HapticStyle { case light, soft, medium }
-}
-
-// MARK: - Views
-struct PillItemView: View {
-    let item: FanMenuItem
-    var body: some View {
-        HStack(spacing: 8) {
-            Image(systemName: item.icon)
-                .font(.system(size: 18))
-                .foregroundColor(Color.secondary)
-            Text(item.label)
-                .font(.system(size: 14, weight: .medium))
-                .foregroundColor(.primary)
-        }
-        .padding(.horizontal, 14)
-        .frame(height: 40)
-        .background(Color.white)
-        .clipShape(Capsule())
-        .shadow(color: Color.black.opacity(0.08), radius: 6, x: 0, y: 2)
-    }
-}
-
-struct RippleView: View {
-    @Binding var active: Bool
-    @State private var scale: CGFloat = 0.4
-    @State private var opacity: Double = 0.4
-
-    var body: some View {
-        Circle()
-            .fill(Color.white)
-            .frame(width: 60, height: 60)
-            .scaleEffect(active ? 2.0 : 0.6)
-            .opacity(active ? 0.0 : 0.25)
-            .onChange(of: active) { opened in
-                if opened {
-                    withAnimation(Animation.easeOut(duration: 0.6)) {
-                        scale = 2.0
-                        opacity = 0.0
-                    }
-                } else {
-                    scale = 0.4
-                    opacity = 0.25
-                }
-            }
-    }
+    let tint: Color
 }
 
 struct FanMenuView: View {
     @State private var isExpanded = false
+    @State private var selectedItem = "Image"
+    @State private var highlightedIndex: Int?
+    @State private var dragLocation: CGPoint?
+    @State private var gestureStartedExpanded = false
+    @State private var pulse = false
+    @Environment(\.colorScheme) private var scheme
 
     private let items: [FanMenuItem] = [
-        FanMenuItem(label: "Image", icon: "photo.on.rectangle.angled"),
-        FanMenuItem(label: "Video", icon: "film.stack"),
-        FanMenuItem(label: "Music", icon: "music.note"),
-        FanMenuItem(label: "Document", icon: "doc.text"),
-        FanMenuItem(label: "Learning", icon: "book.closed"),
+        FanMenuItem(label: "Image", icon: "photo.on.rectangle.angled", tint: .blue),
+        FanMenuItem(label: "Video", icon: "film.stack", tint: .purple),
+        FanMenuItem(label: "Music", icon: "music.note", tint: .pink),
+        FanMenuItem(label: "Document", icon: "doc.text", tint: .orange),
+        FanMenuItem(label: "Learning", icon: "book.closed", tint: .green)
     ]
 
     var body: some View {
-        ZStack(alignment: .center) {
-            // Subtle overlay when expanded
-            if isExpanded {
-                Color.black.opacity(0.02)
-                    .ignoresSafeArea()
-                    .onTapGesture {
-                        closeMenu()
-                    }
-            }
+        GeometryReader { proxy in
+            let center = CGPoint(x: proxy.size.width / 2, y: proxy.size.height / 2 + 64)
+            let actionCenters = items.indices.map { itemCenter(for: $0, origin: center) }
 
-            // Pill items (fan)
-            ForEach(items.indices, id: \.self) { idx in
-                PillItemView(item: items[idx])
-                    .offset(x: itemOffsetX(for: idx), y: itemOffsetY(for: idx))
-                    .opacity(isExpanded ? 1 : 0)
-                    .scaleEffect(isExpanded ? 1.0 : 0.4)
-                    .animation(openAnimation(for: idx), value: isExpanded)
-                    .onTapGesture {
-                        itemTapped(items[idx])
-                    }
-            }
+            ZStack {
+                background
 
-            // Trigger button
-            Button(action: {
-                toggleMenu()
-            }) {
-                ZStack {
-                    Circle()
-                        .fill(Color.white)
-                        .frame(width: 56, height: 56)
-                        .shadow(color: Color.black.opacity(0.08), radius: 16, x: 0, y: 8)
-                    // Morphing + -> ×
-                    ZStack {
-                        Image(systemName: "plus")
-                            .font(.system(size: 22, weight: .medium))
-                            .foregroundColor(.primary)
-                            .opacity(isExpanded ? 0.0 : 1.0)
-                        Image(systemName: "xmark")
-                            .font(.system(size: 22, weight: .medium))
-                            .foregroundColor(.primary)
-                            .opacity(isExpanded ? 1.0 : 0.0)
-                    }
-                    .rotationEffect(.degrees(isExpanded ? 45 : 0))
+                if isExpanded {
+                    Color.primary.opacity(0.001)
+                        .ignoresSafeArea()
+                        .onTapGesture(perform: closeMenu)
                 }
+
+                VStack(spacing: 10) {
+                    Text(selectedItem)
+                        .font(.system(size: 32, weight: .bold, design: .rounded))
+                        .contentTransition(.numericText())
+
+                    Text("Selected action")
+                        .font(.callout.weight(.medium))
+                        .foregroundStyle(.secondary)
+                }
+                .offset(y: -210)
+
+                ForEach(items.indices, id: \.self) { index in
+                    let item = items[index]
+                    let isHighlighted = highlightedIndex == index
+
+                    FanMenuPill(item: item, isHighlighted: isHighlighted)
+                        .position(isExpanded ? actionCenters[index] : center)
+                        .opacity(isExpanded ? 1 : 0)
+                        .scaleEffect(isExpanded ? (isHighlighted ? 1.12 : 1) : 0.35)
+                        .rotationEffect(.degrees(isExpanded ? 0 : -12))
+                        .zIndex(isHighlighted ? 2 : 1)
+                        .animation(.spring(response: 0.42, dampingFraction: 0.72).delay(Double(index) * 0.025), value: isExpanded)
+                        .animation(.spring(response: 0.22, dampingFraction: 0.7), value: highlightedIndex)
+                        .onTapGesture {
+                            selectItem(at: index)
+                        }
+                }
+
+                if isExpanded {
+                    ForEach(items.indices, id: \.self) { index in
+                        FanMenuConnector(
+                            start: center,
+                            end: actionCenters[index],
+                            tint: items[index].tint.opacity(highlightedIndex == index ? 0.5 : 0.16)
+                        )
+                    }
+                    .transition(.opacity)
+                }
+
+                FanMenuTrigger(isExpanded: isExpanded, pulse: pulse)
+                    .position(center)
+                    .gesture(
+                        DragGesture(minimumDistance: 0, coordinateSpace: .local)
+                            .onChanged { value in
+                                if dragLocation == nil {
+                                    gestureStartedExpanded = isExpanded
+                                }
+
+                                if !isExpanded {
+                                    openMenu()
+                                }
+
+                                dragLocation = value.location
+                                highlightedIndex = nearestItem(to: value.location, centers: actionCenters)
+                            }
+                            .onEnded { value in
+                                let didTap = hypot(value.translation.width, value.translation.height) < 8
+
+                                if didTap {
+                                    if gestureStartedExpanded {
+                                        closeMenu()
+                                    } else {
+                                        dragLocation = nil
+                                        gestureStartedExpanded = false
+                                    }
+                                    return
+                                }
+
+                                if let highlightedIndex {
+                                    selectItem(at: highlightedIndex)
+                                } else {
+                                    closeMenu()
+                                }
+                            }
+                    )
+                    .zIndex(3)
             }
-            .buttonStyle(.plain)
-            .padding(.leading, 20)
-            .padding(.bottom, 20)
-
-            // Ripple on open
-            RippleView(active: $isExpanded)
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-        .background(Color(UIColor.systemGroupedBackground).ignoresSafeArea())
-        .onAppear {
-            // Prepare haptics lazily
-            _ = HapticManager.shared
+            .animation(.spring(response: 0.42, dampingFraction: 0.78), value: isExpanded)
         }
     }
 
-    // MARK: - Helpers
-    private func itemOffsetX(for idx: Int) -> CGFloat {
-        isExpanded ? -14.0 * CGFloat(idx) : 0
+    private var background: some View {
+        LinearGradient(
+            colors: [
+                Color(white: scheme == .light ? 0.98 : 0.06),
+                Color(white: scheme == .light ? 0.93 : 0.02)
+            ],
+            startPoint: .top,
+            endPoint: .bottom
+        )
+        .ignoresSafeArea()
     }
-    private func itemOffsetY(for idx: Int) -> CGFloat {
-        isExpanded ? -60.0 * CGFloat(idx) : 0
+
+    private func itemCenter(for index: Int, origin: CGPoint) -> CGPoint {
+        let angles: [CGFloat] = [-154, -122, -90, -58, -26]
+        let radius: CGFloat = 148
+        let angle = angles[index] * .pi / 180
+        return CGPoint(
+            x: origin.x + cos(angle) * radius,
+            y: origin.y + sin(angle) * radius
+        )
     }
-    private func openAnimation(for idx: Int) -> Animation {
-        let delay = Double(idx) * 0.04
-        return Animation.spring(response: 0.42, dampingFraction: 0.68).delay(delay)
-    }
-    private func toggleMenu() {
-        isExpanded.toggle()
-        // Haptics on open/close
-        if isExpanded {
-            HapticManager.shared.trigger(.medium)
-        } else {
-            HapticManager.shared.trigger(.soft)
+
+    private func nearestItem(to location: CGPoint, centers: [CGPoint]) -> Int? {
+        let distances = centers.enumerated().map { index, center in
+            (index: index, distance: hypot(location.x - center.x, location.y - center.y))
         }
+
+        guard let nearest = distances.min(by: { $0.distance < $1.distance }), nearest.distance < 76 else {
+            return nil
+        }
+
+        return nearest.index
     }
+
+    private func openMenu() {
+        withAnimation(.spring(response: 0.42, dampingFraction: 0.72)) {
+            isExpanded = true
+            pulse.toggle()
+        }
+        Sound.play(.startup)
+        hapticFeedback(style: .medium)
+    }
+
     private func closeMenu() {
-        if isExpanded {
-            // Closing animation with reverse order naturally via state
-            withAnimation(Animation.spring(response: 0.32, dampingFraction: 0.8)) {
-                isExpanded = false
-            }
-            HapticManager.shared.trigger(.soft)
+        withAnimation(.spring(response: 0.32, dampingFraction: 0.82)) {
+            isExpanded = false
+            highlightedIndex = nil
+            dragLocation = nil
+            gestureStartedExpanded = false
         }
+        hapticFeedback(style: .soft)
     }
-    private func itemTapped(_ item: FanMenuItem) {
-        print("Selected: \(item.label)")
-        HapticManager.shared.trigger(.light)
+
+    private func selectItem(at index: Int) {
+        selectedItem = items[index].label
+        Sound.play(.buttonTap)
+        hapticFeedback(style: .rigid)
         closeMenu()
     }
 }
 
-// MARK: - Preview
-struct FanMenuView_Previews: PreviewProvider {
-    static var previews: some View {
-        ZStack {
-            Color(UIColor.systemGroupedBackground).ignoresSafeArea()
-            FanMenuView()
+private struct FanMenuPill: View {
+    let item: FanMenuItem
+    let isHighlighted: Bool
+
+    var body: some View {
+        HStack(spacing: 8) {
+            Image(systemName: item.icon)
+                .font(.system(size: 17, weight: .semibold))
+                .foregroundStyle(isHighlighted ? .white : item.tint)
+                .frame(width: 22)
+
+            Text(item.label)
+                .font(.system(size: 14, weight: .semibold, design: .rounded))
+                .foregroundStyle(isHighlighted ? .white : .primary)
+                .lineLimit(1)
         }
+        .padding(.horizontal, 15)
+        .frame(height: 42)
+        .background(Color(UIColor.secondarySystemGroupedBackground), in: .capsule)
     }
+}
+
+private struct FanMenuTrigger: View {
+    let isExpanded: Bool
+    let pulse: Bool
+
+    var body: some View {
+        ZStack {
+            Circle()
+                .stroke(.primary.opacity(0.08), lineWidth: 1)
+                .frame(width: 92, height: 92)
+                .scaleEffect(pulse ? 1.35 : 0.72)
+                .opacity(isExpanded ? 0 : 0.45)
+                .animation(.easeOut(duration: 0.48), value: pulse)
+
+
+            Image(systemName: "plus")
+                .font(.system(size: 24, weight: .bold))
+                .foregroundStyle(.primary)
+                .rotationEffect(.degrees(isExpanded ? 45 : 0))
+        }
+        .contentShape(Circle())
+    }
+}
+
+private struct FanMenuConnector: View {
+    let start: CGPoint
+    let end: CGPoint
+    let tint: Color
+
+    var body: some View {
+        Path { path in
+            path.move(to: start)
+            path.addQuadCurve(
+                to: end,
+                control: CGPoint(x: (start.x + end.x) / 2, y: min(start.y, end.y) - 18)
+            )
+        }
+        .stroke(tint, style: StrokeStyle(lineWidth: 2, lineCap: .round))
+        .allowsHitTesting(false)
+    }
+}
+
+#Preview {
+    FanMenuView()
 }

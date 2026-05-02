@@ -60,7 +60,7 @@ struct FluidSigningInteraction: View {
                     withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
                         lines.removeAll()
                     }
-                    UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                    hapticFeedback(style: .light)
                 } label: {
                     Image(systemName: "arrow.counterclockwise")
                         .font(.system(size: 18, weight: .bold))

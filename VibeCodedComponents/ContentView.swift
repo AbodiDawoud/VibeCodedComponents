@@ -8,6 +8,7 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         ComponentsListScreen {
+            ComponentEntry(title: "Magnetic Action Dock", date: "May 2", badge: "New", destination: MagneticActionDockView.init)
             ComponentEntry(title: "Fan Menu", date: "March 18", destination: FanMenuView.init)
             ComponentEntry(title: "Gooey Menu", date: "March 21", destination: SmoothGooeyMenu.init)
             ComponentEntry(title: "Expandable QR Button", date: "March 24", destination: ExpandableQRButton.init)

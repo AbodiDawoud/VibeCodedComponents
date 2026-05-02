@@ -55,6 +55,7 @@
 		BD653DEA2F5BBEA80018509A /* ReceiveConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD653DE92F5BBEA80018509A /* ReceiveConfirmationView.swift */; };
 		BD653DEE2F5BE7E90018509A /* HorizontalPillPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD653DED2F5BE7E90018509A /* HorizontalPillPicker.swift */; };
 		BD653DF02F5BEDF00018509A /* PremiumTimerWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD653DEF2F5BEDF00018509A /* PremiumTimerWidget.swift */; };
+		BD6FF65E2FA6B73200932C6B /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6FF65D2FA6B73200932C6B /* View+.swift */; };
 		BD83F5D52FA45AAA00624399 /* FanMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD83F5D42FA45AAA00624399 /* FanMenu.swift */; };
 		BDAD35B12F5B2CDD0039A7AC /* soft_startup.wav in Resources */ = {isa = PBXBuildFile; fileRef = BDAD35AE2F5B2CDD0039A7AC /* soft_startup.wav */; };
 		BDDF45A22F8FA13D00B37ADF /* BankingWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDF45A12F8FA13D00B37ADF /* BankingWidgetView.swift */; };
@@ -65,6 +66,7 @@
 		BDE718982F5A149200CDA6FF /* TemperatureControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE718972F5A149200CDA6FF /* TemperatureControls.swift */; };
 		BDE7189A2F5A214700CDA6FF /* FluidDropInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE718992F5A214700CDA6FF /* FluidDropInteraction.swift */; };
 		BDE7189C2F5A22CB00CDA6FF /* PreparationWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE7189B2F5A22CB00CDA6FF /* PreparationWidgetView.swift */; };
+		BDFA01022F9F000100000001 /* MagneticActionDock.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFA01012F9F000100000001 /* MagneticActionDock.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -117,6 +119,7 @@
 		BD653DE92F5BBEA80018509A /* ReceiveConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveConfirmationView.swift; sourceTree = "<group>"; };
 		BD653DED2F5BE7E90018509A /* HorizontalPillPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalPillPicker.swift; sourceTree = "<group>"; };
 		BD653DEF2F5BEDF00018509A /* PremiumTimerWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumTimerWidget.swift; sourceTree = "<group>"; };
+		BD6FF65D2FA6B73200932C6B /* View+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+.swift"; sourceTree = "<group>"; };
 		BD83F5D42FA45AAA00624399 /* FanMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FanMenu.swift; sourceTree = "<group>"; };
 		BDAD35AE2F5B2CDD0039A7AC /* soft_startup.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = soft_startup.wav; sourceTree = "<group>"; };
 		BDDF45A12F8FA13D00B37ADF /* BankingWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankingWidgetView.swift; sourceTree = "<group>"; };
@@ -127,6 +130,7 @@
 		BDE718972F5A149200CDA6FF /* TemperatureControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperatureControls.swift; sourceTree = "<group>"; };
 		BDE718992F5A214700CDA6FF /* FluidDropInteraction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FluidDropInteraction.swift; sourceTree = "<group>"; };
 		BDE7189B2F5A22CB00CDA6FF /* PreparationWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreparationWidgetView.swift; sourceTree = "<group>"; };
+		BDFA01012F9F000100000001 /* MagneticActionDock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagneticActionDock.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,6 +215,7 @@
 				BD0995FB2F6218B500CF2821 /* AudioPlayerComponent.swift */,
 				BDDF45A12F8FA13D00B37ADF /* BankingWidgetView.swift */,
 				BD83F5D42FA45AAA00624399 /* FanMenu.swift */,
+				BDFA01012F9F000100000001 /* MagneticActionDock.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -249,6 +254,7 @@
 			isa = PBXGroup;
 			children = (
 				BD0F82702F5A38800036366D /* SoundEffectPlayer.swift */,
+				BD6FF65D2FA6B73200932C6B /* View+.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -352,12 +358,14 @@
 				BD0F82832F5A76E80036366D /* HoldToDeleteButton.swift in Sources */,
 				BD2440A62F5E6675001D9CA5 /* LiquidTimePicker.swift in Sources */,
 				BD0338BF2F58D06500DF9F97 /* LoadingCookTextView.swift in Sources */,
+				BD6FF65E2FA6B73200932C6B /* View+.swift in Sources */,
 				BD3DB5C92F5CE695000B3663 /* BatteryWidgetView.swift in Sources */,
 				BD0338C02F58D06500DF9F97 /* ExpandingDeleteButton.swift in Sources */,
 				BD3DB5C52F5CDE5F000B3663 /* SearchingOrbLoader.swift in Sources */,
 				BD653DE62F5BB4050018509A /* TextRoller.swift in Sources */,
 				BD0995FC2F6218B500CF2821 /* AudioPlayerComponent.swift in Sources */,
 				BD83F5D52FA45AAA00624399 /* FanMenu.swift in Sources */,
+				BDFA01022F9F000100000001 /* MagneticActionDock.swift in Sources */,
 				BDE7189C2F5A22CB00CDA6FF /* PreparationWidgetView.swift in Sources */,
 				BD3DB5CF2F5D0EB2000B3663 /* DrawingPromptBox.swift in Sources */,
 				BD3DB5CB2F5CEEB6000B3663 /* JoyfulPriceStepper.swift in Sources */,
