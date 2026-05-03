@@ -9,9 +9,9 @@ struct ComponentsListScreen: View {
     private let entries: [ComponentEntry]
     private let edgeFadeHeight: CGFloat = 44
    
-    @State private var tappedEntry: ComponentEntry?
-    @Namespace private var animation
+    @Namespace private var namespace
     @Environment(\.colorScheme) private var scheme
+    @Environment(\.openURL) private var openURL
     
     init(@EntriesBuilder entries: () -> [ComponentEntry]) {
         self.entries = entries()
@@ -24,9 +24,15 @@ struct ComponentsListScreen: View {
                 
                 VStack(spacing: 0) {
                     ForEach(Array(entries.enumerated()), id: \.element.id) { index, entry in
-                        ComponentEntryRowView(entry: entry)
-                            .matchedTransitionSource(id: entry.id, in: animation)
-                            .onTapGesture { tappedEntry = entry }
+                        NavigationLink {
+                            entry.destination
+                                .navigationBarBackButtonHidden()
+                                .navigationTransition(.zoom(sourceID: entry.id, in: namespace))
+                        } label: {
+                            ComponentEntryRowView(entry: entry)
+                                .matchedTransitionSource(id: entry.id, in: namespace)
+                        }
+                        .buttonStyle(.plain)
                         
                         if index < entries.count - 1 {
                             Divider()
@@ -40,10 +46,6 @@ struct ComponentsListScreen: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             .padding(.horizontal, 24)
             .padding(.vertical, 18)
-        }
-        .sheet(item: $tappedEntry) { entry in
-            entry.destination
-                .navigationTransition(.zoom(sourceID: entry.id, in: animation))
         }
         .overlay(alignment: .center) {
             VStack {
@@ -75,27 +77,57 @@ struct ComponentsListScreen: View {
     }
 
     private var profileHeader: some View {
-        HStack(alignment: .center, spacing: 24) {
-            VStack(alignment: .leading, spacing: 8) {
+        HStack {
+            VStack(alignment: .leading, spacing: 6) {
                 Text("Abodi Dawoud")
                     .font(.system(size: 23, weight: .bold, design: .default))
                     .foregroundStyle(.primary)
                     .lineLimit(1)
                     .minimumScaleFactor(0.8)
-
-                Text("Developer")
-                    .font(.system(size: 17, weight: .regular, design: .default))
-                    .foregroundStyle(.secondary)
+                    .onTapGesture(perform: showProfileOnGitHub)
+                
+                HStack(spacing: 2) {
+                    Image(.arrowTurn)
+                        .resizable()
+                        .renderingMode(.template)
+                        .scaledToFit()
+                        .frame(width: 17, height: 17)
+                        .foregroundStyle(.gray)
+                    
+                    Text("Developer")
+                        .font(.system(size: 16.5, weight: .medium, design: .default))
+                        .foregroundStyle(headerTextGradient)
+                }
             }
 
             Spacer(minLength: 16)
 
-            Image(.orb)
+            Image(.avatar)
                 .resizable()
                 .scaledToFill()
-                .frame(width: 56, height: 56)
-                .clipShape(Circle())
+                .frame(width: 48, height: 48)
+                .clipShape(.circle)
         }
+    }
+    
+    
+    private var headerTextGradient: LinearGradient {
+        let darkColors: [Color] = [
+            Color(#colorLiteral(red: 0.6592999697, green: 0.4976742864, blue: 1, alpha: 1)), Color(#colorLiteral(red: 1, green: 0.7957118154, blue: 0.9133895636, alpha: 1)), Color(#colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1))
+        ]
+        
+        
+        return LinearGradient(
+            colors: scheme == .light ? [.purple.mix(with: .white, by: 0.2)] : darkColors,
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        )
+    }
+    
+    func showProfileOnGitHub() {
+        hapticFeedback(style: .rigid)
+        let url = URL(string: "https://github.com/abodidawoud")!
+        openURL(url)
     }
 }
 
@@ -128,10 +160,10 @@ private struct ComponentEntryRowView: View {
                 Text(badge)
                     .textCase(.uppercase)
                     .font(.system(size: 13, weight: .semibold, design: .rounded))
-                    .foregroundStyle(.blue.gradient)
+                    .foregroundStyle(.purple.gradient)
                     .padding(.horizontal, 12)
                     .frame(height: 27)
-                    .background(.blue.quaternary, in: .capsule)
+                    .background(.purple.quaternary, in: .capsule)
                     .padding(.leading, 14)
             }
 
