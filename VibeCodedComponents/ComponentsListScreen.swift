@@ -80,24 +80,15 @@ struct ComponentsListScreen: View {
         HStack {
             VStack(alignment: .leading, spacing: 6) {
                 Text("Abodi Dawoud")
-                    .font(.system(size: 23, weight: .bold, design: .default))
+                    .font(.system(size: 20, weight: .bold, design: .default))
                     .foregroundStyle(.primary)
                     .lineLimit(1)
                     .minimumScaleFactor(0.8)
                     .onTapGesture(perform: showProfileOnGitHub)
                 
-                HStack(spacing: 2) {
-                    Image(.arrowTurn)
-                        .resizable()
-                        .renderingMode(.template)
-                        .scaledToFit()
-                        .frame(width: 17, height: 17)
-                        .foregroundStyle(.gray)
-                    
-                    Text("Developer")
-                        .font(.system(size: 16.5, weight: .medium, design: .default))
-                        .foregroundStyle(headerTextGradient)
-                }
+                Text("Developer")
+                    .font(.subheadline)
+                    .foregroundStyle(.gray)
             }
 
             Spacer(minLength: 16)
@@ -105,24 +96,11 @@ struct ComponentsListScreen: View {
             Image(.avatar)
                 .resizable()
                 .scaledToFill()
-                .frame(width: 48, height: 48)
+                .frame(width: 36, height: 36)
                 .clipShape(.circle)
         }
     }
-    
-    
-    private var headerTextGradient: LinearGradient {
-        let darkColors: [Color] = [
-            Color(#colorLiteral(red: 0.6592999697, green: 0.4976742864, blue: 1, alpha: 1)), Color(#colorLiteral(red: 1, green: 0.7957118154, blue: 0.9133895636, alpha: 1)), Color(#colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1))
-        ]
-        
-        
-        return LinearGradient(
-            colors: scheme == .light ? [.purple.mix(with: .white, by: 0.2)] : darkColors,
-            startPoint: .topLeading,
-            endPoint: .bottomTrailing
-        )
-    }
+
     
     func showProfileOnGitHub() {
         hapticFeedback(style: .rigid)
@@ -137,19 +115,19 @@ private struct ComponentEntryRowView: View {
 
     var body: some View {
         HStack(alignment: .center, spacing: 0) {
-            HStack(alignment: .firstTextBaseline, spacing: 9) {
+            HStack(alignment: .firstTextBaseline, spacing: 4) {
                 Text(entry.title)
-                    .font(.callout.bold())
+                    .font(.subheadline.bold())
                     .lineLimit(1)
                     .minimumScaleFactor(0.75)
 
                 if !entry.date.isEmpty {
                     Text("•")
-                        .bold()
+                        .fontWeight(.thin)
                         .foregroundStyle(.secondary)
                     
                     Text(entry.date)
-                        .font(.callout)
+                        .font(.subheadline)
                         .foregroundStyle(.secondary)
                         .lineLimit(1)
                         .minimumScaleFactor(0.75)
@@ -158,11 +136,10 @@ private struct ComponentEntryRowView: View {
 
             if let badge = entry.badge {
                 Text(badge)
-                    .textCase(.uppercase)
-                    .font(.system(size: 13, weight: .semibold, design: .rounded))
+                    .font(.system(size: 12, weight: .semibold, design: .rounded))
                     .foregroundStyle(.purple.gradient)
-                    .padding(.horizontal, 12)
-                    .frame(height: 27)
+                    .padding(.horizontal, 10)
+                    .frame(height: 24)
                     .background(.purple.quaternary, in: .capsule)
                     .padding(.leading, 14)
             }
