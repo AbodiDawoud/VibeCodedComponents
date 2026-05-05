@@ -67,6 +67,8 @@
 		BDE7189A2F5A214700CDA6FF /* FluidDropInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE718992F5A214700CDA6FF /* FluidDropInteraction.swift */; };
 		BDE7189C2F5A22CB00CDA6FF /* PreparationWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE7189B2F5A22CB00CDA6FF /* PreparationWidgetView.swift */; };
 		BDFA01022F9F000100000001 /* MagneticActionDock.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFA01012F9F000100000001 /* MagneticActionDock.swift */; };
+		BDFDC7FF2FAA84E100C0BBCF /* ProfilePopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFDC7FE2FAA84E100C0BBCF /* ProfilePopupView.swift */; };
+		BDFDC8022FAA983D00C0BBCF /* FeaturedComponentCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFDC8012FAA983D00C0BBCF /* FeaturedComponentCard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -131,6 +133,8 @@
 		BDE718992F5A214700CDA6FF /* FluidDropInteraction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FluidDropInteraction.swift; sourceTree = "<group>"; };
 		BDE7189B2F5A22CB00CDA6FF /* PreparationWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreparationWidgetView.swift; sourceTree = "<group>"; };
 		BDFA01012F9F000100000001 /* MagneticActionDock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagneticActionDock.swift; sourceTree = "<group>"; };
+		BDFDC7FE2FAA84E100C0BBCF /* ProfilePopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePopupView.swift; sourceTree = "<group>"; };
+		BDFDC8012FAA983D00C0BBCF /* FeaturedComponentCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedComponentCard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +170,7 @@
 				BD0F82612F5A37DE0036366D /* Resources */,
 				BD0F826F2F5A38740036366D /* Helpers */,
 				BD0338B62F58D05300DF9F97 /* Components */,
+				BDFDC8002FAA84F900C0BBCF /* Views */,
 				BD18B6A42FA78D8C00A4E19B /* ComponentsListScreen.swift */,
 				BD0338AB2F58D02600DF9F97 /* ContentView.swift */,
 				BD0338A92F58D02600DF9F97 /* App.swift */,
@@ -259,6 +264,15 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		BDFDC8002FAA84F900C0BBCF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BDFDC7FE2FAA84E100C0BBCF /* ProfilePopupView.swift */,
+				BDFDC8012FAA983D00C0BBCF /* FeaturedComponentCard.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -350,6 +364,7 @@
 				BD0338C62F58D82D00DF9F97 /* WaveTextRenderer.swift in Sources */,
 				BDE20A222F5FAB4500063ADC /* FluidSigningInteraction.swift in Sources */,
 				BD0338AA2F58D02600DF9F97 /* App.swift in Sources */,
+				BDFDC7FF2FAA84E100C0BBCF /* ProfilePopupView.swift in Sources */,
 				BD44A6052F5909430053439F /* DiscreteTabsView.swift in Sources */,
 				BD0338BE2F58D06500DF9F97 /* GooeyMenu.swift in Sources */,
 				BDE7189A2F5A214700CDA6FF /* FluidDropInteraction.swift in Sources */,
@@ -369,6 +384,7 @@
 				BDE7189C2F5A22CB00CDA6FF /* PreparationWidgetView.swift in Sources */,
 				BD3DB5CF2F5D0EB2000B3663 /* DrawingPromptBox.swift in Sources */,
 				BD3DB5CB2F5CEEB6000B3663 /* JoyfulPriceStepper.swift in Sources */,
+				BDFDC8022FAA983D00C0BBCF /* FeaturedComponentCard.swift in Sources */,
 				BD18B6A52FA78D8C00A4E19B /* ComponentsListScreen.swift in Sources */,
 				BD3DB5D52F5D304D000B3663 /* QRCodeInteractionButton.swift in Sources */,
 				BD0338C82F58D97C00DF9F97 /* NestedDynamicSegment.swift in Sources */,

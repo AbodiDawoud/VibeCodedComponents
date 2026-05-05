@@ -8,10 +8,19 @@ import SwiftUI
 struct ComponentsListScreen: View {
     private let entries: [ComponentEntry]
     private let edgeFadeHeight: CGFloat = 44
+    private let carouselBackgrounds = [
+        "UnicornVectorGradient_1",
+        "UnicornVectorGradient_2",
+        "UnicornVectorGradient_3",
+        "UnicornVectorGradient_4",
+        "UnicornVectorGradient_5",
+        "UnicornVectorGradient_6",
+    ]
    
     @Namespace private var namespace
     @Environment(\.colorScheme) private var scheme
     @Environment(\.openURL) private var openURL
+    @State private var isProfilePopupPresented = false
     
     init(@EntriesBuilder entries: () -> [ComponentEntry]) {
         self.entries = entries()
@@ -21,6 +30,7 @@ struct ComponentsListScreen: View {
         ScrollView(.vertical, showsIndicators: false) {
             LazyVStack(alignment: .leading, spacing: 0) {
                 profileHeader
+                featuredCarousel
                 
                 VStack(spacing: 0) {
                     ForEach(Array(entries.enumerated()), id: \.element.id) { index, entry in
@@ -84,7 +94,6 @@ struct ComponentsListScreen: View {
                     .foregroundStyle(.primary)
                     .lineLimit(1)
                     .minimumScaleFactor(0.8)
-                    .onTapGesture(perform: showProfileOnGitHub)
                 
                 Text("Developer")
                     .font(.subheadline)
@@ -93,19 +102,52 @@ struct ComponentsListScreen: View {
 
             Spacer(minLength: 16)
 
-            Image(.avatar)
-                .resizable()
-                .scaledToFill()
-                .frame(width: 36, height: 36)
-                .clipShape(.circle)
+            Button {
+                hapticFeedback(style: .light)
+                isProfilePopupPresented.toggle()
+            } label: {
+                Image(.avatar)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 36, height: 36)
+                    .clipShape(.circle)
+                    .overlay {
+                        Circle()
+                            .stroke(.primary.opacity(0.08), lineWidth: 1)
+                    }
+            }
+            .buttonStyle(.plain)
+            .popover(isPresented: $isProfilePopupPresented, arrowEdge: .top) {
+                ProfilePopupView(componentCount: entries.count)
+            }
         }
     }
 
-    
-    func showProfileOnGitHub() {
-        hapticFeedback(style: .rigid)
-        let url = URL(string: "https://github.com/abodidawoud")!
-        openURL(url)
+    private var featuredCarousel: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 12) {
+                ForEach(Array(entries.prefix(6).enumerated()), id: \.element.id) { index, entry in
+                    NavigationLink {
+                        entry.destination
+                            .navigationBarBackButtonHidden()
+                            .navigationTransition(.zoom(sourceID: CarouselSourceID(id: entry.id), in: namespace))
+                    } label: {
+                        FeaturedComponentCard(
+                            entry: entry,
+                            backgroundName: carouselBackgrounds[index % carouselBackgrounds.count]
+                        )
+                        .matchedTransitionSource(id: CarouselSourceID(id: entry.id), in: namespace)
+                    }
+                    .buttonStyle(.plain)
+                }
+            }
+            .padding(.horizontal, 20)
+            .scrollTargetLayout()
+        }
+        .contentMargins(.horizontal, 0, for: .scrollContent)
+        .scrollTargetBehavior(.viewAligned)
+        .padding(.horizontal, -24)
+        .padding(.top, 26)
     }
 }
 
@@ -175,6 +217,7 @@ struct ComponentEntry: Identifiable {
         self.destination = AnyView(destination())
     }
 }
+
 
 @resultBuilder
 enum EntriesBuilder {
