@@ -18,6 +18,7 @@ Open `VibeCodedComponents.xcodeproj` in Xcode, browse the components, and copy w
 
 ## Screenshots
 
+<img width="387" height="768" alt="Home" src="https://github.com/user-attachments/assets/bde63d21-099b-4233-8635-626a0df76847" />
 <img width="387" height="768" alt="WidgetInteraction" src="https://github.com/user-attachments/assets/180f14c9-d746-4463-b90e-3ad27aa602dd" />
 <img width="387" height="768" alt="Sliders" src="https://github.com/user-attachments/assets/17ffbbb4-1fa7-43ad-81d7-704033f533c4" />
 <img width="387" height="768" alt="SignField" src="https://github.com/user-attachments/assets/361965f5-254c-41eb-bc70-8f06e043592e" />
