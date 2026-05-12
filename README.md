@@ -25,3 +25,5 @@ Open `VibeCodedComponents.xcodeproj` in Xcode, browse the components, and copy w
 <img width="387" height="768" alt="HorizontalPicker" src="https://github.com/user-attachments/assets/15e863e0-0814-4414-b26b-161715a494cc" />
 <img width="387" height="768" alt="ClockPicker" src="https://github.com/user-attachments/assets/9bfa886a-1571-458e-b337-00e041a9f03d" />
 <img width="387" height="768" alt="ChargeWidget" src="https://github.com/user-attachments/assets/05fcde33-42b9-48db-8c4c-ab8b9325d7a9" />
+
+**and a lot more..**
